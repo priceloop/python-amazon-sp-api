@@ -385,7 +385,10 @@ class Reports(Client):
                 if character_code.lower() == 'windows-31j':
                     character_code = 'cp932'
             if 'compressionAlgorithm' in res.payload:
-                document = zlib.decompress(bytearray(document), 15 + 32)
+                try:
+                    document = zlib.decompress(bytearray(document), 15 + 32)
+                except:
+                    pass
             decoded_document = document.decode(character_code)
             if download:
                 res.payload.update({
